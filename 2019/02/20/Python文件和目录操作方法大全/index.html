@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>python文件和目录操作方法 | 枫林晚秋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="CUI Junlei,CUI Junlei's Blog">
+  
+  <meta name="description" content="[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。1.得到当前工作目录，即当前Python脚本工作的目录路径: os.getcwd() 2.返回指定目录下的所有文件和目录名:os.listdir() 3.函数用来删除一个文件:os.remove() 4.删除多个目录：os.removed">
+<meta name="keywords" content="python文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python文件和目录操作方法">
+<meta property="og:url" content="http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/index.html">
+<meta property="og:site_name" content="枫林晚秋">
+<meta property="og:description" content="[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。1.得到当前工作目录，即当前Python脚本工作的目录路径: os.getcwd() 2.返回指定目录下的所有文件和目录名:os.listdir() 3.函数用来删除一个文件:os.remove() 4.删除多个目录：os.removed">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-20T13:03:55.321Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python文件和目录操作方法">
+<meta name="twitter:description" content="[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。1.得到当前工作目录，即当前Python脚本工作的目录路径: os.getcwd() 2.返回指定目录下的所有文件和目录名:os.listdir() 3.函数用来删除一个文件:os.remove() 4.删除多个目录：os.removed">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">CUI Junlei&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        CUI Junlei&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注学习开发和记录日志的博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="//makeafree.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/makeafree">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="https://weibo.com/u/5616330228">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter"  href="//twitter.com/huangminhow">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Python文件和目录操作方法大全" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      python文件和目录操作方法
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/python/">python</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-02-20
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="转载-python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）"><a href="#转载-python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）" class="headerlink" title="[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）"></a>[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）</h1><h2 id="一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。"><a href="#一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。" class="headerlink" title="一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。"></a>一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。</h2><p>1.得到当前工作目录，即当前Python脚本工作的目录路径: os.getcwd()</p>
+<p>2.返回指定目录下的所有文件和目录名:os.listdir()</p>
+<p>3.函数用来删除一个文件:os.remove()</p>
+<p>4.删除多个目录：os.removedirs（r“c：\python”）</p>
+<p>5.检验给出的路径是否是一个文件：os.path.isfile()</p>
+<p>6.检验给出的路径是否是一个目录：os.path.isdir()</p>
+<p>7.判断是否是绝对路径：os.path.isabs()</p>
+<p>8.检验给出的路径是否真地存:os.path.exists()</p>
+<p>9.返回一个路径的目录名和文件名:os.path.split()     eg os.path.split(‘/home/swaroop/byte/code/poem.txt’) 结果：(‘/home/swaroop/byte/code’, ‘poem.txt’) </p>
+<p>10.分离扩展名：os.path.splitext()</p>
+<p>11.获取路径名：os.path.dirname()</p>
+<p>12.获取文件名：os.path.basename()</p>
+<p>13.运行shell命令: os.system()</p>
+<p>14.读取和设置环境变量:os.getenv() 与os.putenv()</p>
+<p>15.给出当前平台使用的行终止符:os.linesep    Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’</p>
+<p>16.指示你正在使用的平台：os.name       对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’</p>
+<p>17.重命名：os.rename（old， new）</p>
+<p>18.创建多级目录：os.makedirs（r“c：\python\test”）</p>
+<p>19.创建单个目录：os.mkdir（“test”）</p>
+<p>20.获取文件属性：os.stat（file）</p>
+<p>21.修改文件权限与时间戳：os.chmod（file）</p>
+<p>22.终止当前进程：os.exit（）</p>
+<p>23.获取文件大小：os.path.getsize（filename）</p>
+<h2 id="二、文件操作方法大全："><a href="#二、文件操作方法大全：" class="headerlink" title="二、文件操作方法大全："></a>二、文件操作方法大全：</h2><p>1.os.mknod(“test.txt”)             #创建空文件</p>
+<p>2.fp = open(“test.txt”,w)          #直接打开一个文件，如果文件不存在则创建文件</p>
+<p>3.关于open 模式：</p>
+<p>w：以写方式打开，</p>
+<p>a：以追加模式打开 (从 EOF 开始, 必要时创建新文件)  </p>
+<p>r+：以读写模式打开  </p>
+<p>w+：以读写模式打开 (参见 w )  </p>
+<p>a+：以读写模式打开 (参见 a )  </p>
+<p>rb：以二进制读模式打开  </p>
+<p>wb：以二进制写模式打开 (参见 w )  </p>
+<p>ab：以二进制追加模式打开 (参见 a )  </p>
+<p>rb+：以二进制读写模式打开 (参见 r+ )  </p>
+<p>wb+：以二进制读写模式打开 (参见 w+ )  </p>
+<p>ab+：以二进制读写模式打开 (参见 a+ )  </p>
+<p>fp.read([size])                     #size为读取的长度，以byte为单位</p>
+<p>fp.readline([size])                 #读一行，如果定义了size，有可能返回的只是一行的一部分</p>
+<p>fp.readlines([size])                #把文件每一行作为一个list的一个成员，并返回这个list。其实它的内部是通过循环调用readline()来实现的。如果提供size参数，size是表示读取内容的总长，也就是说可能只读到文件的一部分。</p>
+<p>fp.write(str)                       #把str写到文件中，write()并不会在str后加上一个换行符</p>
+<p>fp.writelines(seq)                  #把seq的内容全部写到文件中(多行一次性写入)。这个函数也只是忠实地写入，不会在每行后面加上任何东西。</p>
+<p>fp.close()                          #关闭文件。python会在一个文件不用后自动关闭文件，不过这一功能没有保证，最好还是养成自己关闭的习惯。  如果一个文件在关闭后还对其进行操作会产生ValueError</p>
+<p>fp.flush()                          #把缓冲区的内容写入硬盘</p>
+<p>fp.fileno()                         #返回一个长整型的”文件标“</p>
+<p>fp.isatty()                         #文件是否是一个终端设备文件（unix系统中的）</p>
+<p>fp.tell()                           #返回文件操作标记的当前位置，以文件的开头为原点</p>
+<p>fp.next()                           #返回下一行，并将文件操作标记位移到下一行。把一个file用于for … in file这样的语句时，就是调用next()函数来实现遍历的。</p>
+<p>fp.seek(offset[,whence])            #将文件打操作标记移到offset的位置。这个offset一般是相对于文件的开头来计算的，一般为正数。但如果提供了whence参数就不一定了，whence可以为0表示从头开始计算，1表示以当前位置为原点计算。2表示以文件末尾为原点进行计算。需要注意，如果文件以a或a+的模式打开，每次进行写操作时，文件操作标记会自动返回到文件末尾。</p>
+<p>fp.truncate([size])                 #把文件裁成规定的大小，默认的是裁到当前文件操作标记的位置。如果size比文件的大小还要大，依据系统的不同可能是不改变文件，也可能是用0把文件补到相应的大小，也可能是以一些随机的内容加上去。</p>
+<h2 id="三、目录操作方法大全"><a href="#三、目录操作方法大全" class="headerlink" title="三、目录操作方法大全"></a>三、目录操作方法大全</h2><p>1.创建目录</p>
+<p>os.mkdir(“file”)      </p>
+<p>2.复制文件：</p>
+<p>shutil.copyfile(“oldfile”,”newfile”)        #oldfile和newfile都只能是文件</p>
+<p>shutil.copy(“oldfile”,”newfile”)            #oldfile只能是文件夹，newfile可以是文件，也可以是目标目录</p>
+<p>3.复制文件夹：</p>
+<p>4.shutil.copytree(“olddir”,”newdir”)        #olddir和newdir都只能是目录，且newdir必须不存在</p>
+<p>5.重命名文件（目录）</p>
+<p>os.rename(“oldname”,”newname”)              #文件或目录都是使用这条命令</p>
+<p>6.移动文件（目录）</p>
+<p>shutil.move(“oldpos”,”newpos”)   </p>
+<p>7.删除文件</p>
+<p>os.remove(“file”)</p>
+<p>8.删除目录</p>
+<p>os.rmdir(“dir”)                             #只能删除空目录</p>
+<p>shutil.rmtree(“dir”)                        #空目录、有内容的目录都可以删</p>
+<p>9.转换目录</p>
+<p>os.chdir(“path”)                            #换路径</p>
+<p>四、文件综合操作实例</p>
+<p>将文件夹下所有图片名称加上’_fc’</p>
+<p>python代码:</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>import re<br>import os<br>import time<br> #str.split(string)分割字符串<br> #’连接符’.join(list) 将列表组成字符串<br>def change_name(path):<br>    global i<br>    if not os.path.isdir(path) and not os.path.isfile(path):<br>        return False<br>    if os.path.isfile(path):<br>        file_path = os.path.split(path) #分割出目录与文件<br>        lists = file_path[1].split(‘.’) #分割出文件与文件扩展名<br>        file_ext = lists[-1] #取出后缀名(列表切片操作)<br>        img_ext = [‘bmp’,’jpeg’,’gif’,’psd’,’png’,’jpg’]<br>        if file_ext in img_ext:<br>            os.rename(path,file_path[0]+’/‘+lists[0]+’_fc.’+file_ext)<br>            i+=1 #注意这里的i是一个陷阱<br>        #或者<br>        #img_ext = ‘bmp|jpeg|gif|psd|png|jpg’<br>        #if file_ext in img_ext:<br>        #    print(‘ok—‘+file_ext)<br>    elif os.path.isdir(path):<br>        for x in os.listdir(path):<br>            change_name(os.path.join(path,x)) #os.path.join()在路径处理上很有用<br>img_dir = ‘D:\xx\xx\images’  </p>
+<p>img_dir = img_dir.replace(‘\‘,’/‘)<br>start = time.time()<br>i = 0<br>change_name(img_dir)<br>c = time.time() - start<br>print(‘程序运行耗时:%0.2f’%(c))<br>print(‘总共处理了 %s 张图片’%(i))<br>‘’’</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年02月20日 21:03</p>
+        <p>原始链接： <a class="post-url" href="/2019/02/20/Python文件和目录操作方法大全/" title="python文件和目录操作方法">http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/</a></p>
+        <footer>
+            <a href="http://makeafree.github.io">
+                <img src="/images/logo.png" alt="cuijunlei">
+                cuijunlei
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/&title=《python文件和目录操作方法》 — 枫林晚秋&pic=http://makeafree.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/&title=《python文件和目录操作方法》 — 枫林晚秋&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python文件和目录操作方法》 — 枫林晚秋&url=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/&via=http://makeafree.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://makeafree.github.io/2019/02/20/Python文件和目录操作方法大全/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python文件/" class="color4">python文件</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#转载-python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）"><span class="post-toc-text">[转载]python文件和目录操作方法大全（含更改文件夹下所有文件名称的实例）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。"><span class="post-toc-text">一、Python中对文件、文件夹操作时经常用到的os模块和shutil模块常用方法。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、文件操作方法大全："><span class="post-toc-text">二、文件操作方法大全：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、目录操作方法大全"><span class="post-toc-text">三、目录操作方法大全</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#coding-utf-8"><span class="post-toc-text">-- coding:utf-8 --</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/10/13/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Hello World
+        
+      </span>
+    </a>
+  
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 cuijunlei<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://makeafree.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/python/">python</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/python文件/" style="font-size: 10px;">python文件</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/python文件/" style="font-size: 10px;">python文件</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
