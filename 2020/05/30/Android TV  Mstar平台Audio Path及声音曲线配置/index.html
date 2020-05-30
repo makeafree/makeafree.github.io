@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>枫林晚秋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="CUI Junlei,CUI Junlei's Blog">
+  
+  <meta name="description" content="Android TV : Mstar平台Audio Path及声音曲线配置一、Audio Path配置　　在HW 修改电路之后，SW 通常也需要重新修改匹配硬件，这样才能保证功能的正常使用。 　　下面以VGA 通过的line-lin 为例：　　 　　 　　从原理图上看，VGA通道的PC audio in 是属于芯片端的pin 脚是Y3，AA4，对应的 port 是line-in 第 0 路。">
+<meta name="keywords" content="日志">
+<meta property="og:type" content="article">
+<meta property="og:title" content="枫林晚秋">
+<meta property="og:url" content="http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/index.html">
+<meta property="og:site_name" content="枫林晚秋">
+<meta property="og:description" content="Android TV : Mstar平台Audio Path及声音曲线配置一、Audio Path配置　　在HW 修改电路之后，SW 通常也需要重新修改匹配硬件，这样才能保证功能的正常使用。 　　下面以VGA 通过的line-lin 为例：　　 　　 　　从原理图上看，VGA通道的PC audio in 是属于芯片端的pin 脚是Y3，AA4，对应的 port 是line-in 第 0 路。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528095018201-1130768780.png">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528101826269-580895933.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528110242767-479386450.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528110319294-432976471.png">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
+<meta property="og:updated_time" content="2020-05-30T03:40:17.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="枫林晚秋">
+<meta name="twitter:description" content="Android TV : Mstar平台Audio Path及声音曲线配置一、Audio Path配置　　在HW 修改电路之后，SW 通常也需要重新修改匹配硬件，这样才能保证功能的正常使用。 　　下面以VGA 通过的line-lin 为例：　　 　　 　　从原理图上看，VGA通道的PC audio in 是属于芯片端的pin 脚是Y3，AA4，对应的 port 是line-in 第 0 路。">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528095018201-1130768780.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">CUI Junlei&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        CUI Junlei&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注学习开发和记录日志的博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="//makeafree.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/makeafree">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="https://weibo.com/u/5616330228">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter"  href="//twitter.com/huangminhow">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Android TV  Mstar平台Audio Path及声音曲线配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="Android-TV-Mstar平台Audio-Path及声音曲线配置"><a href="#Android-TV-Mstar平台Audio-Path及声音曲线配置" class="headerlink" title="Android TV : Mstar平台Audio Path及声音曲线配置"></a><a href="https://www.cnblogs.com/blogs-of-lxl/p/12978759.html" target="_blank" rel="noopener">Android TV : Mstar平台Audio Path及声音曲线配置</a></h2><h2 id="一、Audio-Path配置"><a href="#一、Audio-Path配置" class="headerlink" title="一、Audio Path配置"></a>一、Audio Path配置</h2><p>　　在HW 修改电路之后，SW 通常也需要重新修改匹配硬件，这样才能保证功能的正常使用。</p>
+<p>　　下面以VGA 通过的line-lin 为例：　　</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528095018201-1130768780.png" alt="img"></p>
+<p>　　从原理图上看，VGA通道的PC audio in 是属于芯片端的pin 脚是Y3，AA4，对应的 port 是line-in 第 0 路。</p>
+<p>　　mstar 平台 audio 的映射关系包含audio in，audio out，以及内部 audio mux。对应的是board.h 文件中的三个结构体：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>// audio-in , 右侧对应的是通道，左侧是对应的声音进入的port 
+static AudioMux_t BOARD_AudioMux_t[BOARD_AUDIO_INPUT_SOURCE_TYPE_SIZE] =
+{
+    {AUDIO_DSP1_DVB_INPUT},    //AUDIO_SOURCE_DTV
+    {AUDIO_DSP1_DVB_INPUT},    //AUDIO_SOURCE_DTV2
+    {AUDIO_DSP4_SIF_INPUT},    //AUDIO_SOURCE_ATV
+    {AUDIO_AUIN4_INPUT},       //AUDIO_SOURCE_PC
+    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_YPbPr
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_YPbPr2
+    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_AV
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_AV2
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_AV3
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_SV
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_SV2
+    {AUDIO_AUIN4_INPUT},       //AUDIO_SOURCE_SCART
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_SCART2
+    {AUDIO_HDMI_INPUT},        //AUDIO_SOURCE_HDMI
+    {AUDIO_HDMI_INPUT},        //AUDIO_SOURCE_HDMI2
+    {AUDIO_HDMI_INPUT},        //AUDIO_SOURCE_HDMI3
+    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_DVI
+    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_DVI2
+    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_DVI3
+    {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_KTV
+};
+//  audio mux，右侧对应的通道也即input source，左侧对应的是耳机/喇叭的port 
+static AudioMux_t BOARD_AudioPath_t[BOARD_AUDIO_PATH_TYPE_SIZE] =
+{
+    {AUDIO_T3_PATH_I2S},       //AUDIO_PATH_MAIN_SPEAKER
+    {AUDIO_T3_PATH_AUOUT1},    //AUDIO_PATH_HP
+    {AUDIO_T3_PATH_AUOUT0},    //AUDIO_PATH_LINEOUT
+    {AUDIO_PATH_NULL},         //AUDIO_PATH_SIFOUT
+    {AUDIO_PATH_NULL},         //AUDIO_PATH_SCART1 = SIF out
+    {AUDIO_T3_PATH_AUOUT0},    //AUDIO_PATH_SCART2 = Lineout
+    {AUDIO_T3_PATH_SPDIF},     //AUDIO_PATH_SPDIF
+    {AUDIO_PATH_NULL},         //AUDIO_PATH_HDMI
+    {AUDIO_T3_PATH_MIXER_MAIN},        // AUDIO_PATH_MIXER_MAIN
+    {AUDIO_T3_PATH_MIXER_SECONDARY},        // AUDIO_PATH_MIXER_SECONDARY
+    {AUDIO_PATH_NULL},                  // AUDIO_PATH_7
+    {AUDIO_T3_PATH_MIXER_DMA_IN},        // AUDIO_PATH_MIXER_DMA_IN
+};
+// audio-out， 是输出path 的选择
+static AudioOutputType_t BOARD_AudioOutputType_t[BOARD_AUDIO_OUTPUT_TYPE_SIZE] =
+{
+    {AUDIO_I2S_OUTPUT},    //AUDIO_PATH_MAIN_SPEAKER
+    {AUDIO_AUOUT1_OUTPUT},    //AUDIO_PATH_HP
+    {AUDIO_AUOUT0_OUTPUT},    //AUDIO_PATH_LINEOUT
+    {AUDIO_NULL_OUTPUT},    //AUDIO_PATH_SIFOUT
+    {AUDIO_NULL_OUTPUT},    //AUDIO_PATH_SCART1 = SIF out
+    {AUDIO_AUOUT0_OUTPUT},    //AUDIO_PATH_SCART2 = Lineout
+};</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　从上面的信息可以看到，line-in 里面AUDIO_AUIN0_INPUT port 对应了YPBPR，AV，DVI，DVI2，DVI3 几个通道，未看到VGA通道，配置audio in， out ，mux 信息之后，需要在系统中生效就必须初始化，设置到寄存器中去，继续查到找到三个结构体，分别保存在systeminfo模块的m_pAudioMuxInfo，m_pAudioPathInfo，m_pAudioOutputTypeInfo三个成员中，通过下面接口获取：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>@vendor\mstar\supernova\projects\systeminfo\src\SystemInfo.cpp
+const AudioMux_t* SystemInfo::GetAudioInputMuxInfo()
+{
+    if(m_pAudioMuxInfo != NULL)
+    {
+        return m_pAudioMuxInfo;
+    }
+
+    ASSERT(0);
+}
+
+const AudioPath_t* SystemInfo::GetAudioPathInfo()
+{
+    if(m_pAudioPathInfo != NULL)
+    {
+        return m_pAudioPathInfo;
+    }
+
+    ASSERT(0);
+}
+
+const AudioOutputType_t* SystemInfo::GetAudioOutputTypeInfo()
+{
+    if(m_pAudioOutputTypeInfo != NULL)
+    {
+        return m_pAudioOutputTypeInfo;
+    }
+
+    ASSERT(0);
+}</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　接着在_InputSourceTypeToAudioInputType（vendor\mstar\supernova\projects\customization\MStarSDK\audio\mapi_audio_customer.cpp）接口中获取，根据通道进行设置：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>static AUDIO_INPUT_TYPE _InputSourceTypeToAudioInputType(MAPI_INPUT_SOURCE_TYPE eSourceType)
+{
+    const AudioMux_t* const p_AudioInputMux = mapi_syscfg_fetch::GetInstance()-&gt;GetAudioInputMuxInfo();
+    AUDIO_INPUT_TYPE eAudioInputType = AUDIO_NULL_INPUT;
+    MAPI_U32 u32Port = 0xFF;
+
+    switch(eSourceType)
+    {
+        case MAPI_INPUT_SOURCE_DTV:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_DTV].u32Port;
+            break;
+        }
+        ........
+        case MAPI_INPUT_SOURCE_YPBPR:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_YPBPR].u32Port;
+            break;
+        }
+        case MAPI_INPUT_SOURCE_YPBPR2:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_YPBPR2].u32Port;
+            break;
+        }
+
+        case MAPI_INPUT_SOURCE_VGA:
+        case MAPI_INPUT_SOURCE_VGA2:
+        case MAPI_INPUT_SOURCE_VGA3:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_PC].u32Port;
+            break;
+        }
+        case MAPI_INPUT_SOURCE_HDMI:
+        case MAPI_INPUT_SOURCE_HDMI2:
+        case MAPI_INPUT_SOURCE_HDMI3:
+        case MAPI_INPUT_SOURCE_HDMI4:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_HDMI].u32Port;
+            break;
+        }
+        case MAPI_INPUT_SOURCE_DVI:
+        {
+            u32Port = p_AudioInputMux[MAPI_AUDIO_SOURCE_DVI].u32Port;
+            break;
+        }
+
+        ......
+    }
+
+    eAudioInputType = _u32PortToAudioInputType(u32Port);
+    return eAudioInputType;
+}</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　到这里可以发现VGA，VGA2，VGA3 使用的是 audio in 结构体中的source （MAPI_AUDIO_SOURCE_PC） 对应的的port ：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>diff --git a/serials/MST160D_10ABQM_18443_DTMB_AH/Board.h b/serials/MST160D_10ABQM_18443_DTMB_AH/Board.h
+index 24b27d5..da095f1 100755
+--- a/serials/MST160D_10ABQM_18443_DTMB_AH/Board.h
++++ b/serials/MST160D_10ABQM_18443_DTMB_AH/Board.h
+@@ -820,7 +820,7 @@ static AudioMux_t BOARD_AudioMux_t[BOARD_AUDIO_INPUT_SOURCE_TYPE_SIZE] =
+     {AUDIO_DSP1_DVB_INPUT},    //AUDIO_SOURCE_DTV
+     {AUDIO_DSP1_DVB_INPUT},    //AUDIO_SOURCE_DTV2
+     {AUDIO_DSP4_SIF_INPUT},    //AUDIO_SOURCE_ATV
+-    {AUDIO_AUIN4_INPUT},       //AUDIO_SOURCE_PC
++    {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_PC
+     {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_YPbPr
+     {AUDIO_NULL_INPUT},        //AUDIO_SOURCE_YPbPr2
+     {AUDIO_AUIN0_INPUT},       //AUDIO_SOURCE_AV</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　因此将AUDIO_AUIN4_INPUT 换成AUDIO_AUIN0_INPUT 即可。</p>
+<p>　　如果 speaker 和 headphone 同一路硬件输出，优先以speaker 为主，同时AUDIO_OUTPUT_HP 的audio path 可以配置为NULL。　</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528101826269-580895933.png" alt="img"></p>
+<p>　　更多mstar 平台音频属性，音效设置详参文件：drvAUDIO_if.h，mapi_audio_datatype.h，apiAUDIO.h，mapi_audio.h，mapi_audio_customer.cpp，mapi_audio.cpp,MSrv_SSSound.cpp</p>
+<h2 id="二、声音曲线配置"><a href="#二、声音曲线配置" class="headerlink" title="二、声音曲线配置"></a>二、声音曲线配置</h2><p>　　mstar平台在配置完音频通道，调通功放后，需要调整声音曲线和声音功率。声音功率是调整音量逻辑最大值(100)时，喇叭(负载)功率的最大值，而声音曲线是音量0 ~ 100 整个区间，对应的音频输出的增益大小，所以声音功率调试也是曲线调试的一部分。</p>
+<p><strong>（1）增益寄存器</strong></p>
+<p>　　 例如，我当前平台音频输出对应的bank 是0x112D</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528110242767-479386450.png" alt="img"></p>
+<p>　　其中，音频输出通道有6个，如下</p>
+<p> 　<img src="https://img2020.cnblogs.com/blog/821933/202005/821933-20200528110319294-432976471.png" alt="img"></p>
+<p> 　两个寄存器组成16 位，来完成增益值的配置。</p>
+<p><strong>（2）增益调整</strong><br>　　从上面的excel表格中，可以知悉每个音频通道的增益调整的寄存器的16个bit位。接好喇叭(负载的阻值要和客户要求一样，例如；8欧姆)，播放1KHZ -12 db 的音源，接上示波器量负载电压。</p>
+<p>　　最大功率调整：将电视音量调整到最大值100，再调整对应输出通道寄存器值，观察电压变化，并计算功率，达到客户要求的功率为止。</p>
+<p>　　曲线调整：最大功率就是音量为100时，寄存器的增益值。接着在调整0~99区间对应的增益值。</p>
+<p><strong>（3）音频曲线配置</strong></p>
+<p>　　在customer_1.ini 中配置</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>TypeID = 5;
+[VolumeCurve]
+bEnabled = TRUE;
+u8Volume_Int[101] = \
+    { \
+        INT_LINE1, \
+        INT_LINE2, \
+        INT_LINE3, \
+        INT_LINE4, \
+        INT_LINE5, \
+        INT_LINE6, \
+        INT_LINE7, \
+        INT_LINE8, \
+        INT_LINE9, \
+        INT_LINEa, \
+        INT_LINEb  \
+    };
+
+ u8Volume_Fra[101] = \
+    {  \
+        FRA_LINE1, \
+        FRA_LINE2, \
+        FRA_LINE3, \
+        FRA_LINE4, \
+        FRA_LINE5, \
+        FRA_LINE6, \
+        FRA_LINE7, \
+        FRA_LINE8, \
+        FRA_LINE9, \
+        FRA_LINEa, \
+        FRA_LINEb  \
+    };</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　数组中的宏可以根据不同功放进行客制化参数配置，如：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>INT_LINE1=0x7F
+INT_LINE2='0x46,0x42,0x40,0x3E,0x3C,0x3a,0x38,0x36,0x34,0x32'
+INT_LINE3='0x30,0x2E,0x2D,0x2C,0x2B,0x2A,0x29,0x28,0x27,0x26'
+INT_LINE4='0x25,0x24,0x23,0x22,0x21,0x20,0x1F,0x1E,0x1E,0x1D'
+INT_LINE5='0x1D,0x1C,0x1C,0x1B,0x1B,0x1A,0x1A,0x19,0x19,0x18'
+INT_LINE6='0x18,0x17,0x17,0x16,0x16,0x15,0x15,0x15,0x14,0x14'
+INT_LINE7='0x14,0x14,0x13,0x13,0x13,0x13,0x12,0x12,0x12,0x12'
+INT_LINE8='0x11,0x11,0x11,0x11,0x10,0x10,0x10,0x10,0x0F,0x0F'
+INT_LINE9='0x0F,0x0F,0x0F,0x0F,0x0F,0x0F,0x0E,0x0E,0x0E,0x0E'
+INT_LINEa='0x0E,0x0E,0x0E,0x0E,0x0D,0x0D,0x0D,0x0D,0x0D,0x0D'
+INT_LINEb='0x0D,0x0D,0x0C,0x0C,0x0C,0x0C,0x0C,0x0C,0x0C,0x0C'
+
+FRA_LINE1=0x00
+FRA_LINE2='0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00'
+FRA_LINE3='0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00'
+FRA_LINE4='0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04,0x00,0x04'
+FRA_LINE5='0x00,0x04,0x00,0x04,0x00,0x04,0x00,0x04,0x00,0x04'
+FRA_LINE6='0x00,0x04,0x00,0x04,0x00,0x04,0x02,0x00,0x06,0x04'
+FRA_LINE7='0x02,0x00,0x06,0x04,0x02,0x00,0x06,0x04,0x02,0x00'
+FRA_LINE8='0x06,0x04,0x02,0x00,0x06,0x04,0x02,0x00,0x07,0x06'
+FRA_LINE9='0x05,0x04,0x03,0x02,0x01,0x00,0x07,0x06,0x05,0x04'
+FRA_LINEa='0x03,0x02,0x01,0x00,0x07,0x06,0x05,0x04,0x03,0x02'
+FRA_LINEb='0x01,0x00,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00'</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　配置文件在</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>mapi_audio_customer.cpp
+void mapi_audio_customer::SetAbsoluteVolume(const MAPI_U8 u8Path, MAPI_U8 uPercent, const MAPI_U8 uReserve) const
+{
+    MAPI_U8  TransVolum_int = 0;
+    MAPI_U8  TransVolum_fra = 0;
+
+    UNUSED(uReserve);
+
+    if(uPercent &gt;= MAPI_AUDIO_VOLUME_ARRAY_NUMBER)
+    {
+        uPercent = MAPI_AUDIO_VOLUME_ARRAY_NUMBER - 1;
+        printf("SetAbsoluteVolume: uPercent value overflow!!!\n");
+    }
+
+    //check if system configuration provide customized volume curve.
+    const VolumeCurve_t* const curve = mapi_syscfg_fetch::GetInstance()-&gt;GetVolumeCurve();
+    if ((curve != NULL) &amp;&amp; (curve-&gt;bEnabled == 1))
+    {
+        TransVolum_int = curve-&gt;u8Volume_Int[uPercent];
+        TransVolum_fra = curve-&gt;u8Volume_Fra[uPercent];
+    }
+    else // Use default volume table.
+    {
+        TransVolum_int = (MAPI_U8)(u8Volume[uPercent] &gt;&gt; 8);
+        TransVolum_fra = (MAPI_U8)(u8Volume[uPercent] &amp; 0x00FF);
+    }
+
+    printf("\nSetAbsoluteVolume: u8Path = 0x%x\n",u8Path);
+    printf("\nSetAbsoluteVolume: Set Volume int value = 0x%x\n", TransVolum_int);
+    printf("\nSetAbsoluteVolume: Set Volume fra value = 0x%x\n", TransVolum_fra);
+    MApi_AUDIO_SetAbsoluteVolume(u8Path, TransVolum_int, TransVolum_fra);
+}</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　通过mapi_syscfg_fetch::GetInstance()-&gt;GetVolumeCurve()即获取ini配置声音曲线表，u8Patch 对应的就是 lineout0，lineout1，lingout2，lineout3…</p>
+<p>　　最后通过MApi_AUDIO_SetAbsoluteVolume(u8Path, TransVolum_int, TransVolum_fra) 设置到主芯片寄存器：</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>////////////////////////////////////////////////////////////////////////////////
+/// @ingroup Audio_BASIC_SOUNDEFFECT
+/// @brief \b Function \b Name: MDrv_SOUND_AbsoluteVolume()
+/// @brief \b Function \b Description: This routine is used to set the absolute u8Volume of audio u8Path.
+/// @param u8Path      \b : for audio u8Path0 ~ u8Path6
+/// @param u8Vol1      \b : MSB 7-bit register value of 10-bit u8Volume
+///                         range from 0x00 to 0x7E , gain: +12db to   -114db (-1 db per step)
+/// @param u8Vol2      \b : LSB 3-bit register value of 10-bit u8Volume
+///                         range from 0x00 to 0x07 , gain:  -0db to -0.875db (-0.125 db per step)
+////////////////////////////////////////////////////////////////////////////////
+ void    MApi_AUDIO_SetAbsoluteVolume( MS_U8 u8Path, MS_U8 u8Vol1, MS_U8 u8Vol2 );</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<p>　　当使用外挂混音，需要固定主芯片输出时，以下通过MApi_XC_WriteByte 直接固定了lineout0(0x112D) 这一路的输出，</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<pre><code>MAPI_U8 mapi_audio_customer::fixOutputVolumeOffset() const
+{
+    #define REGADDR (0x112D00)
+
+    MAPI_U8  TransVolum_int       = 0;
+    MAPI_U8  TransVolum_fra       = 0;
+    MAPI_U16  u16Temp             = 0x0000;
+    const MAPI_U16  u16Vga        = 0x0c00;
+    const MAPI_U16  u16Hdmi       = 0x0400;
+    const MAPI_U16  u16tv         = 0x04c0; // atv, dtv
+    const MAPI_U16  u16Storage    = 0x0b80;
+    const MAPI_U16  u16Cvbs       = 0x0a80;
+
+    if(MAPI_INPUT_SOURCE_VGA == m_mainCurInputSrc)
+    {
+        u16Temp = u16Vga;
+    }
+    else if(MAPI_INPUT_SOURCE_ATV == m_mainCurInputSrc || MAPI_INPUT_SOURCE_DTV == m_mainCurInputSrc)
+    {
+        u16Temp = u16tv;
+    }
+    else if(MAPI_INPUT_SOURCE_CVBS &lt;= m_mainCurInputSrc &amp;&amp; MAPI_INPUT_SOURCE_CVBS_MAX &gt; m_mainCurInputSrc)
+    {
+        u16Temp = u16Cvbs;
+    }
+    else if (MAPI_INPUT_SOURCE_YPBPR &lt;= m_mainCurInputSrc &amp;&amp; MAPI_INPUT_SOURCE_YPBPR_MAX &gt; m_mainCurInputSrc)
+    {
+        u16Temp = u16Cvbs;
+    }
+    else if(MAPI_INPUT_SOURCE_HDMI &lt;= m_mainCurInputSrc &amp;&amp; MAPI_INPUT_SOURCE_HDMI_MAX &gt; m_mainCurInputSrc)
+    {
+        u16Temp = u16Hdmi;
+    }
+    else if(MAPI_INPUT_SOURCE_STORAGE == m_mainCurInputSrc)
+    {
+        u16Temp = u16Storage;
+    }
+    else
+    {
+        return 0;
+    }
+
+    TransVolum_int = (u16Temp &gt;&gt; 8);
+    TransVolum_fra = (u16Temp &amp; 0x00FF);
+
+    printf("[%s][%d] fix the android output to 4.6db \n",__FUNCTION__,__LINE__);
+    printf("[%s][%d] source id: %d, reg[0x112D].value = 0x%04x \n",__FUNCTION__,__LINE__,m_mainCurInputSrc,u16Temp);
+    printf("[%s][%d] int: 0x%02x, fra: 0x%02x \n",__FUNCTION__,__LINE__,TransVolum_int,TransVolum_fra);
+
+    MApi_XC_WriteByte(REGADDR , TransVolum_fra);
+    MApi_XC_WriteByte(REGADDR + 1, TransVolum_int);
+    return 1;
+}</code></pre><p><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年05月30日 11:40</p>
+        <p>原始链接： <a class="post-url" href="/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/" title="">http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/</a></p>
+        <footer>
+            <a href="http://makeafree.github.io">
+                <img src="/images/logo.png" alt="cuijunlei">
+                cuijunlei
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/&title=枫林晚秋&pic=http://makeafree.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/&title=枫林晚秋&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=枫林晚秋&url=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/&via=http://makeafree.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://makeafree.github.io/2020/05/30/Android TV  Mstar平台Audio Path及声音曲线配置/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-TV-Mstar平台Audio-Path及声音曲线配置"><span class="post-toc-text">Android TV : Mstar平台Audio Path及声音曲线配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、Audio-Path配置"><span class="post-toc-text">一、Audio Path配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、声音曲线配置"><span class="post-toc-text">二、声音曲线配置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/30/Android TV  Mstar平台 GPIO 调试/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title"></span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 cuijunlei<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://makeafree.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/程序人生/">程序人生</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/python文件/" style="font-size: 20px;">python文件</a> <a href="/tags/常识知识/" style="font-size: 10px;">常识知识</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/python文件/" style="font-size: 20px;">python文件</a> <a href="/tags/常识知识/" style="font-size: 10px;">常识知识</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
